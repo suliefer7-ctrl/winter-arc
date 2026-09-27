@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winter Arc</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #07111f, #102a43, #07111f);
+        color: white;
+        display: flex;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 900px;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .snow {
+        font-size: 45px;
+    }
+
+    h1 {
+        font-size: 48px;
+        letter-spacing: 5px;
+        margin: 10px 0;
+    }
+
+    .subtitle {
+        color: #a9c7df;
+        font-size: 16px;
+    }
+
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 18px;
+        padding: 22px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+    }
+
+    .number {
+        font-size: 30px;
+        font-weight: bold;
+        margin-top: 8px;
+    }
+
+    .label {
+        color: #a9c7df;
+        font-size: 13px;
+    }
+
+    .missions {
+        background: rgba(255,255,255,0.07);
+        border-radius: 20px;
+        padding: 25px;
+        border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .missions h2 {
+        margin-bottom: 20px;
+    }
+
+    .mission {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        margin: 10px 0;
+        background: rgba(255,255,255,0.06);
+        border-radius: 12px;
+    }
+
+    .mission-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .mission input {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .xp {
+        color: #8bd3ff;
+        font-size: 14px;
+    }
+.achievements {
+    margin-top: 25px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 20px;
+    padding: 25px;
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.achievements h2 {
+    margin-bottom: 20px;
+}
+
+.achievement {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    margin: 10px 0;
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+}
+
+.achievement p {
+    color: #a9c7df;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.achievement span {
+    font-size: 22px;
+}
+    .progress {
+        margin-top: 25px;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 12px;
+        background: #172b3d;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-top: 10px;
+    }
+
+    .progress-fill {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #6dd5ed, #2193b0);
+        transition: 0.3s;
+    }
+
+    .complete {
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    button {
+        background: white;
+        color: #07111f;
+        border: none;
+        padding: 13px 25px;
+        border-radius: 25px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:hover {
+        transform: scale(1.04);
+    }
+
+    @media (max-width: 650px) {
+        .stats {
+            grid-template-columns: 1fr;
+        }
+
+        h1 {
+            font-size: 35px;
+        }
+    }
+/* =========================
+   WINTER ARC ANIMATIONS
+   ========================= */
+
+body {
+    animation: pageFade 0.8s ease;
+}
+
+@keyframes pageFade {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ==============================
+   ❄️ WINTER ARC ANIMATION PACK
+   ============================== */
+
+/* PAGE ENTRANCE */
+body {
+    animation: pageFade 0.8s ease;
+}
+
+@keyframes pageFade {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* STAT CARDS */
+.stat {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat:hover {
+    transform: translateY(-6px) scale(1.02);
+}
+
+
+/* MISSION CARDS */
+.mission {
+    transition: transform 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.mission:hover {
+    transform: translateY(-4px);
+}
+
+
+/* CHECKBOX */
+.mission input[type="checkbox"] {
+    transition: transform 0.2s ease;
+}
+
+.mission input[type="checkbox"]:checked {
+    transform: scale(1.15);
+}
+
+
+/* COMPLETE DAY BUTTON */
+button {
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.02);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+
+/* PROGRESS BAR */
+#progress {
+    transition: width 0.5s ease;
+}
+
+
+/* ACHIEVEMENT CARDS */
+.achievement {
+    transition: transform 0.25s ease,
+                background 0.25s ease;
+}
+
+.achievement:hover {
+    transform: translateX(5px);
+}
+
+
+/* ACHIEVEMENT ICON */
+.achievement span {
+    transition: transform 0.3s ease;
+}
+
+.achievement:hover span {
+    transform: scale(1.2) rotate(5deg);
+}
+
+
+/* TITLE */
+h1 {
+    animation: titleGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 0 5px rgba(255,255,255,0.2);
+    }
+
+    to {
+        text-shadow: 0 0 18px rgba(150,220,255,0.6);
+    }
+}
+
+
+/* SMOOTH CHECKBOX */
+input[type="checkbox"] {
+    cursor: pointer;
+}
+
+
+/* SMOOTH EVERYTHING */
+button,
+.mission,
+.stat,
+.achievement {
+    will-change: transform;
+}
+/* ==============================
+   🏆 ACHIEVEMENT UNLOCK ANIMATION
+   ============================== */
+
+.achievement.unlocked {
+    animation: achievementUnlock 0.7s ease;
+}
+
+@keyframes achievementUnlock {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(255,255,255,0);
+    }
+
+    40% {
+        transform: scale(1.06);
+        box-shadow: 0 0 25px rgba(255,255,255,0.5);
+    }
+
+    70% {
+        transform: scale(0.98);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(255,255,255,0);
+    }
+}
+/* ❄️ FALLING SNOW */
+
+.snow {
+    position: fixed;
+    top: -10px;
+    color: white;
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: snowFall linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes snowFall {
+    0% {
+        transform: translateY(-10px) rotate(0deg);
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+/* 📱 MOBILE VERSION */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .stat {
+        padding: 18px;
+    }
+
+    .missions {
+        padding: 18px;
+    }
+
+    .mission {
+        padding: 14px;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .achievements {
+        padding: 18px;
+    }
+
+    .achievement {
+        padding: 14px;
+    }
+}
+@media (max-width: 600px) {
+
+    .mission label {
+        font-size: 14px;
+    }
+
+    .mission {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .achievement strong {
+        font-size: 14px;
+    }
+
+    .achievement p {
+        font-size: 12px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <div class="snow">❄️</div>
+        <h1>WINTER ARC</h1>
+        <p class="subtitle">Lock in. Build yourself.</p>
+    </div>
+
+    <div class="stats">
+        <div class="card">
+            <div class="label">🔥 STREAK</div>
+            <div class="number">0 DAYS</div>
+        </div>
+
+        <div class="card">
+            <div class="label">⚡ XP</div>
+            <div class="number" id="xp">0</div>
+        </div>
+
+        <div class="card">
+            <div class="label">🏆 LEVEL</div>
+            <div class="number" id="level">1</div>
+        </div>
+    </div>
+
+    <div class="missions">
+
+        <h2>🎯 Today's Missions</h2>
+
+        <div class="mission">
+            <div class="mission-left">
+                <input type="checkbox" onchange="updateXP()">
+                <span>📚 Study</span>
+            </div>
+            <span class="xp">+20 XP</span>
+        </div>
+
+        <div class="mission">
+            <div class="mission-left">
+                <input type="checkbox" onchange="updateXP()">
+                <span>💪 Workout</span>
+            </div>
+            <span class="xp">+20 XP</span>
+        </div>
+
+        <div class="mission">
+            <div class="mission-left">
+                <input type="checkbox" onchange="updateXP()">
+                <span>💧 Drink Water</span>
+            </div>
+            <span class="xp">+20 XP</span>
+        </div>
+
+        <div class="mission">
+            <div class="mission-left">
+                <input type="checkbox" onchange="updateXP()">
+                <span>😴 Good Sleep</span>
+            </div>
+            <span class="xp">+20 XP</span>
+        </div>
+
+        <div class="mission">
+            <div class="mission-left">
+                <input type="checkbox" onchange="updateXP()">
+                <span>📵 No Distractions</span>
+            </div>
+            <span class="xp">+20 XP</span>
+        </div>
+<div class="achievements">
+
+    <h2>🏆 Achievements</h2>
+
+    <div class="achievement">
+        <div>
+            <strong>🔥 First Day</strong>
+            <p>Complete your first Winter Arc day</p>
+        </div>
+        <span id="achievement-first">🔒</span>
+    </div>
+
+    <div class="achievement">
+        <div>
+            <strong>❄️ 7 Day Warrior</strong>
+            <p>Reach a 7 day streak</p>
+        </div>
+        <span id="achievement-7">🔒</span>
+    </div>
+
+    <div class="achievement">
+        <div>
+            <strong>⚡ 30 Day Beast</strong>
+            <p>Reach a 30 day streak</p>
+        </div>
+        <span id="achievement-30">🔒</span>
+    </div>
+
+    <div class="achievement">
+        <div>
+            <strong>👑 1000 XP</strong>
+            <p>Earn 1000 XP</p>
+        </div>
+        <span id="achievement-xp">🔒</span>
+    </div>
+
+</div>
+        <div class="progress">
+            <div>Daily Progress</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+        </div>
+
+        <div class="complete">
+            <button onclick="completeDay()">COMPLETE DAY ❄️</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+let xp = 0;
+let streak = 0;
+
+
+// ==============================
+// LOAD SAVED DATA
+// ==============================
+
+window.onload = function() {
+
+    let savedXP = localStorage.getItem("winterXP");
+    let savedStreak = localStorage.getItem("winterStreak");
+    let savedMissions = localStorage.getItem("winterMissions");
+    let lastCompleted = localStorage.getItem("winterLastCompleted");
+
+    if (savedXP !== null) {
+        xp = Number(savedXP);
+    }
+
+    if (savedStreak !== null) {
+        streak = Number(savedStreak);
+    }
+
+    document.querySelector(".number").innerText =
+        streak + " DAYS";
+
+    document.getElementById("xp").innerText = xp;
+
+    document.getElementById("level").innerText =
+        Math.floor(xp / 100) + 1;
+
+    // Load saved missions
+    if (savedMissions !== null) {
+
+        let missions = JSON.parse(savedMissions);
+
+        let boxes = document.querySelectorAll(
+            "input[type='checkbox']"
+        );
+
+        boxes.forEach((box, index) => {
+            box.checked = missions[index] || false;
+        });
+    }
+
+    checkNewDay(lastCompleted);
+
+    updateProgress();
+
+    checkAchievements();
+
+    loadAchievements();
+};
+
+
+// ==============================
+// CHECK FOR A NEW DAY
+// ==============================
+
+function checkNewDay(lastCompleted) {
+
+    if (lastCompleted === null) {
+        return;
+    }
+
+    let today = new Date();
+    let lastDate = new Date(lastCompleted);
+
+    today.setHours(0, 0, 0, 0);
+    lastDate.setHours(0, 0, 0, 0);
+
+    let difference =
+        Math.floor(
+            (today - lastDate) /
+            (1000 * 60 * 60 * 24)
+        );
+
+    if (difference >= 1) {
+
+        localStorage.removeItem("winterMissions");
+
+        let boxes = document.querySelectorAll(
+            "input[type='checkbox']"
+        );
+
+        boxes.forEach(box => {
+            box.checked = false;
+        });
+
+        xp = 0;
+
+        document.getElementById("xp").innerText = 0;
+
+        updateProgress();
+    }
+}
+
+
+// ==============================
+// UPDATE XP
+// ==============================
+
+function updateXP() {
+
+    let boxes = document.querySelectorAll(
+        "input[type='checkbox']"
+    );
+
+    let checked = document.querySelectorAll(
+        "input[type='checkbox']:checked"
+    ).length;
+
+    xp = checked * 20;
+
+    document.getElementById("xp").innerText = xp;
+
+    let level =
+        Math.floor(xp / 100) + 1;
+
+    document.getElementById("level").innerText =
+        level;
+
+    localStorage.setItem(
+        "winterXP",
+        xp
+    );
+
+    let missions =
+        Array.from(boxes).map(
+            box => box.checked
+        );
+
+    localStorage.setItem(
+        "winterMissions",
+        JSON.stringify(missions)
+    );
+
+    updateProgress();
+}
+
+
+// ==============================
+// PROGRESS BAR
+// ==============================
+
+function updateProgress() {
+
+    let boxes = document.querySelectorAll(
+        "input[type='checkbox']"
+    );
+
+    let checked = document.querySelectorAll(
+        "input[type='checkbox']:checked"
+    ).length;
+
+    let progress =
+        (checked / boxes.length) * 100;
+
+    document.getElementById("progress").style.width =
+        progress + "%";
+}
+
+
+// ==============================
+// COMPLETE DAY
+// ==============================
+
+function completeDay() {
+
+    let boxes = document.querySelectorAll(
+        "input[type='checkbox']"
+    );
+
+    let checked = document.querySelectorAll(
+        "input[type='checkbox']:checked"
+    ).length;
+
+    if (checked !== boxes.length) {
+
+        alert(
+            "Complete all missions first!"
+        );
+
+        return;
+    }
+
+    let today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    let lastCompleted =
+        localStorage.getItem(
+            "winterLastCompleted"
+        );
+
+    // FIRST EVER COMPLETION
+
+    if (lastCompleted === null) {
+
+        streak = 1;
+
+    } else {
+
+        let lastDate =
+            new Date(lastCompleted);
+
+        lastDate.setHours(0, 0, 0, 0);
+
+        let difference =
+            Math.floor(
+                (today - lastDate) /
+                (1000 * 60 * 60 * 24)
+            );
+
+        // Same day
+
+        if (difference === 0) {
+
+            alert(
+                "❄️ You already completed today's Winter Arc!"
+            );
+
+            return;
+        }
+
+        // Consecutive day
+
+        if (difference === 1) {
+
+            streak++;
+
+        }
+
+        // Missed days
+
+        else if (difference > 1) {
+
+            streak = 1;
+        }
+    }
+
+    // Save streak
+
+    localStorage.setItem(
+        "winterStreak",
+        streak
+    );
+
+    // Save date
+
+    localStorage.setItem(
+        "winterLastCompleted",
+        today.toDateString()
+    );
+
+    // Update streak display
+
+    document.querySelector(".number").innerText =
+        streak + " DAYS";
+
+    // Check achievements
+
+    checkAchievements();
+
+    alert(
+        "🔥 DAY " +
+        streak +
+        " COMPLETE! Keep going!"
+    );
+}
+
+
+// ==============================
+// ACHIEVEMENTS
+// ==============================
+function checkAchievements() {
+
+    // First Day
+    if (streak >= 1) {
+
+        document.getElementById("achievement-first").innerText = "🏆";
+
+        document.getElementById("achievement-first")
+            .parentElement.classList.add("unlocked");
+
+        localStorage.setItem("achievementFirst", "true");
+    }
+
+
+    // 7 Day Warrior
+    if (streak >= 7) {
+
+        document.getElementById("achievement-7").innerText = "🏆";
+
+        document.getElementById("achievement-7")
+            .parentElement.classList.add("unlocked");
+
+        localStorage.setItem("achievement7", "true");
+    }
+
+
+    // 30 Day Beast
+    if (streak >= 30) {
+
+        document.getElementById("achievement-30").innerText = "🏆";
+
+        document.getElementById("achievement-30")
+            .parentElement.classList.add("unlocked");
+
+        localStorage.setItem("achievement30", "true");
+    }
+
+
+    // 1000 XP
+    if (xp >= 1000) {
+
+        document.getElementById("achievement-xp").innerText = "🏆";
+
+        document.getElementById("achievement-xp")
+            .parentElement.classList.add("unlocked");
+
+        localStorage.setItem("achievementXP", "true");
+    }
+}
+// ❄️ FALLING SNOW
+
+function createSnow() {
+
+    let snow = document.createElement("div");
+
+    snow.className = "snow";
+    snow.innerText = "❄";
+
+    snow.style.left = Math.random() * 100 + "vw";
+
+    snow.style.fontSize =
+        (10 + Math.random() * 15) + "px";
+
+    snow.style.animationDuration =
+        (5 + Math.random() * 8) + "s";
+
+    document.body.appendChild(snow);
+
+    setTimeout(() => {
+        snow.remove();
+    }, 13000);
+}
+
+setInterval(createSnow, 400);
+</script>
+
+</body>
+</html>
